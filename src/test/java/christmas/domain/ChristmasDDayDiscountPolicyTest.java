@@ -11,7 +11,7 @@ public class ChristmasDDayDiscountPolicyTest {
     @ParameterizedTest
     @DisplayName("12월 1일과 25일 사이라면 할인을 적용한다.")
     @CsvSource(value = {"1, true", "25, true", "26, false", "31, false"})
-    void discountable(int day, boolean expected) {
+    void discount_condition(int day, boolean expected) {
         // given
         ChristmasDDayDiscountPolicy christmasDDayDiscountPolicy = new ChristmasDDayDiscountPolicy();
 
@@ -25,7 +25,7 @@ public class ChristmasDDayDiscountPolicyTest {
     @ParameterizedTest
     @DisplayName("할인 금액은 1000원으로 시작해 크리스마스가 다가올 수록 1000원씩 증가시킨다.")
     @CsvSource(value = {"1, 1000", "2, 1100", "25, 3400"})
-    void discountAmount(int day, long expected) {
+    void calculate_discount_amount(int day, long expected) {
         // given
         ChristmasDDayDiscountPolicy christmasDDayDiscountPolicy = new ChristmasDDayDiscountPolicy();
 
