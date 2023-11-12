@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Menus {
-    public static final String MENU_REGEX = "([가-힣]+-\\d,?)+";
+    public static final String MENU_REGEX = "([가-힣]+-\\d+,?)+";
     public static final String INPUT_MENU_EXCEPTION = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
     public static final String DASH = "-";
     public static final int DEFAULT_MENU_NUMBER_VALUE = 0;
