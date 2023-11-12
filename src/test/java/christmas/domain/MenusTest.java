@@ -104,4 +104,17 @@ public class MenusTest {
         expectedMenus.put(ZERO_COKE, 1);
         return expectedMenus;
     }
+
+    @Test
+    @DisplayName("총 주문 메뉴의 디저트 개수를 구한다.")
+    void count_the_total_number_of_desserts() {
+        // given
+        Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,아이스크림-4,제로콜라-1");
+
+        // when
+        long result = menus.totalDessertCount();
+
+        // then
+        assertThat(result).isEqualTo(6);
+    }
 }

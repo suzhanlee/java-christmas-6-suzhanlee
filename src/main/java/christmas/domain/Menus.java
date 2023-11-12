@@ -124,4 +124,8 @@ public class Menus {
     public Map<Menu, Integer> informTotalOrderMenu() {
         return this.menus;
     }
+
+    public long totalDessertCount() {
+        return menus.keySet().stream().filter(Menu::isDessert).mapToLong(this.menus::get).sum();
+    }
 }
