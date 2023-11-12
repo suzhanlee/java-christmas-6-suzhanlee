@@ -28,4 +28,15 @@ class MenuTest {
                 .isExactlyInstanceOf(IllegalStateException.class)
                 .hasMessage(INPUT_MENU_EXCEPTION);
     }
+
+    @ParameterizedTest
+    @DisplayName("메뉴의 종류가 음료인지 아닌지 알려준다.")
+    @CsvSource(value = {"레드와인, true", "양송이수프, false"})
+    void inform_menu_type_that_is_beverage_or_not(String menuName, boolean expected) {
+        // given
+        Menu menu = Menu.toMenu(menuName);
+
+        // when // then
+        assertThat(menu.isBeverage()).isEqualTo(expected);
+    }
 }

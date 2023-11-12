@@ -17,6 +17,7 @@ public enum Menu {
     RED_WINE("음료", "레드와인", 60000),
     CHAMPAGNE("음료", "샴페인", 25000);
 
+    public static final String BEVERAGE = "음료";
     private final String type;
     private final String name;
     private final int price;
@@ -38,5 +39,9 @@ public enum Menu {
 
     private static boolean isSame(String name, Menu menu) {
         return menu.name.equals(name);
+    }
+
+    public boolean isBeverage() {
+        return this.type.equals(BEVERAGE);
     }
 }
