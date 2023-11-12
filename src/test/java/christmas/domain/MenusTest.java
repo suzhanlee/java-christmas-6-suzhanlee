@@ -43,4 +43,14 @@ public class MenusTest {
                 .isExactlyInstanceOf(IllegalStateException.class)
                 .hasMessage(INPUT_MENU_EXCEPTION);
     }
+
+    @ParameterizedTest
+    @DisplayName("메뉴가 1개 미만인 경우 예외를 던진다.")
+    @ValueSource(strings = {"타파스-0,제로콜라-1", "제로콜라-1,타파스-0", "양송이수프-0"})
+    void validate_menu_count(String menuNamesAndNumbers) {
+        // when // then
+        assertThatThrownBy(() -> new Menus(menuNamesAndNumbers))
+                .isExactlyInstanceOf(IllegalStateException.class)
+                .hasMessage(INPUT_MENU_EXCEPTION);
+    }
 }

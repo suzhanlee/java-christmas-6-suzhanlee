@@ -24,6 +24,7 @@ public class Menus {
         List<String> overlappedMenus = split(menuForm);
         Map<Menu, Integer> uniqueMenus = createUniqueMenus(overlappedMenus);
         validateDuplication(uniqueMenus, overlappedMenus);
+        validateMenuCount(uniqueMenus);
         return uniqueMenus;
     }
 
@@ -41,18 +42,8 @@ public class Menus {
         return Pattern.compile(MENU_REGEX);
     }
 
-    private void validateDuplication(Map<Menu, Integer> menus, List<String> menusAndNumbers) {
-        if (isSame(menus.size(), menusAndNumbers.size())) {
-            throw new IllegalStateException(INPUT_MENU_EXCEPTION);
-        }
-    }
-
     private List<String> split(String menuForm) {
         return List.of(menuForm.split(COMMA));
-    }
-
-    private boolean isSame(int actualMenuSize, int expectedMenuSize) {
-        return actualMenuSize != expectedMenuSize;
     }
 
     private Map<Menu, Integer> createUniqueMenus(List<String> menusAndNumbers) {
@@ -61,13 +52,35 @@ public class Menus {
         return menus;
     }
 
-    private List<String> separateMenuAndNumber(String menuAndNumber) {
-        return List.of(menuAndNumber.split(DASH));
-    }
-
     private void addMenuAndNumber(List<String> seperatedMenuAndNumber, Map<Menu, Integer> menuMap) {
         Menu menu = Menu.toMenu(seperatedMenuAndNumber.get(MENU_INDEX));
         int menuNumber = Integer.parseInt(seperatedMenuAndNumber.get(MENU_NUMBER_INDEX));
         menuMap.put(menu, menuMap.getOrDefault(menu, DEFAULT_MENU_NUMBER_VALUE) + menuNumber);
+    }
+
+    private List<String> separateMenuAndNumber(String menuAndNumber) {
+        return List.of(menuAndNumber.split(DASH));
+    }
+
+    private void validateDuplication(Map<Menu, Integer> menus, List<String> menusAndNumbers) {
+        if (isSame(menus.size(), menusAndNumbers.size())) {
+            throw new IllegalStateException(INPUT_MENU_EXCEPTION);
+        }
+    }
+
+    private boolean isSame(int actualMenuSize, int expectedMenuSize) {
+        return actualMenuSize != expectedMenuSize;
+    }
+
+    private void validateMenuCount(Map<Menu, Integer> uniqueMenus) {
+        for (Integer menuCount : uniqueMenus.values()) {
+            if (!existMenuOrder(menuCount)) {
+                throw new IllegalStateException(INPUT_MENU_EXCEPTION);
+            }
+        }
+    }
+
+    private boolean existMenuOrder(Integer menuCount) {
+        return menuCount >= 1;
     }
 }
