@@ -50,4 +50,15 @@ class MenuTest {
         // when // then
         assertThat(menu.isDessert()).isEqualTo(expected);
     }
+
+    @ParameterizedTest
+    @DisplayName("메뉴의 종류가 메인 메뉴인지 아닌지 알려준다.")
+    @CsvSource(value = {"티본스테이크, true", "아이스크림, false"})
+    void inform_menu_type_that_is_main_or_not(String menuName, boolean expected) {
+        // given
+        Menu menu = Menu.toMenu(menuName);
+
+        // when // then
+        assertThat(menu.isMain()).isEqualTo(expected);
+    }
 }
