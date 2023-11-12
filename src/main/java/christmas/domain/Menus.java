@@ -13,6 +13,7 @@ public class Menus {
     public static final int MENU_INDEX = 0;
     public static final int MENU_NUMBER_INDEX = 1;
     public static final String COMMA = ",";
+    public static final String TOTAL_MENU_COUNT_EXCEPTION = "[ERROR] 한번에 주문할 수 있는 메뉴는 20개를 넘길 수 없습니다.";
     private final Map<Menu, Integer> menus;
 
     public Menus(String menuForm) {
@@ -25,6 +26,7 @@ public class Menus {
         Map<Menu, Integer> uniqueMenus = createUniqueMenus(overlappedMenus);
         validateDuplication(uniqueMenus, overlappedMenus);
         validateMenuCount(uniqueMenus);
+        validateMenuTotalMenuCount(uniqueMenus);
         return uniqueMenus;
     }
 
@@ -82,5 +84,19 @@ public class Menus {
 
     private boolean existMenuOrder(Integer menuCount) {
         return menuCount >= 1;
+    }
+
+    private void validateMenuTotalMenuCount(Map<Menu, Integer> uniqueMenus) {
+        if (greaterThanTwenty(uniqueMenus)) {
+            throw new IllegalStateException(TOTAL_MENU_COUNT_EXCEPTION);
+        }
+    }
+
+    private boolean greaterThanTwenty(Map<Menu, Integer> uniqueMenus) {
+        return getTotalMenuCount(uniqueMenus) > 20;
+    }
+
+    private int getTotalMenuCount(Map<Menu, Integer> uniqueMenus) {
+        return uniqueMenus.values().stream().mapToInt(menuCount -> menuCount).sum();
     }
 }

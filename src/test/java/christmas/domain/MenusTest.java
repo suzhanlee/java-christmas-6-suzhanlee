@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import static christmas.domain.Menus.INPUT_MENU_EXCEPTION;
+import static christmas.domain.Menus.TOTAL_MENU_COUNT_EXCEPTION;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -52,5 +53,15 @@ public class MenusTest {
         assertThatThrownBy(() -> new Menus(menuNamesAndNumbers))
                 .isExactlyInstanceOf(IllegalStateException.class)
                 .hasMessage(INPUT_MENU_EXCEPTION);
+    }
+
+    @ParameterizedTest
+    @DisplayName("총 주문 메뉴가 20개 초과면 예외를 던진다.")
+    @ValueSource(strings = {"타파스-20,제로콜라-1", "제로콜라-2,타파스-20", "양송이수프-21"})
+    void validate_total_menu_of_orders(String menuNamesAndNumbers) {
+        // when // then
+        assertThatThrownBy(() -> new Menus(menuNamesAndNumbers))
+                .isExactlyInstanceOf(IllegalStateException.class)
+                .hasMessage(TOTAL_MENU_COUNT_EXCEPTION);
     }
 }
