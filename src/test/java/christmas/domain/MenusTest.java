@@ -1,11 +1,18 @@
 package christmas.domain;
 
+import static christmas.domain.Menu.BBQ_RIB;
+import static christmas.domain.Menu.CHOCOLATE_CAKE;
+import static christmas.domain.Menu.T_BONE_STEAK;
+import static christmas.domain.Menu.ZERO_COKE;
 import static christmas.domain.Menus.INPUT_MENU_EXCEPTION;
 import static christmas.domain.Menus.ORDERED_MENU_TYPE_EXCEPTION;
 import static christmas.domain.Menus.TOTAL_MENU_COUNT_EXCEPTION;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -74,5 +81,27 @@ public class MenusTest {
         assertThatThrownBy(() -> new Menus(menuNamesAndNumbers))
                 .isExactlyInstanceOf(IllegalStateException.class)
                 .hasMessage(ORDERED_MENU_TYPE_EXCEPTION);
+    }
+
+    @Test
+    @DisplayName("총 주문 메뉴를 알려준다.")
+    void inform_total_order_menu() {
+        // given
+        Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
+
+        // when
+        Map<Menu, Integer> result = menus.informTotalOrderMenu();
+
+        // then
+        assertThat(result).isEqualTo(createExpectedMenus());
+    }
+
+    private Map<Menu, Integer> createExpectedMenus() {
+        Map<Menu, Integer> expectedMenus = new HashMap<>();
+        expectedMenus.put(T_BONE_STEAK, 1);
+        expectedMenus.put(BBQ_RIB, 1);
+        expectedMenus.put(CHOCOLATE_CAKE, 2);
+        expectedMenus.put(ZERO_COKE, 1);
+        return expectedMenus;
     }
 }

@@ -120,4 +120,8 @@ public class Menus {
     private boolean isNotBeverage(Menu menu) {
         return !menu.isBeverage();
     }
+
+    public Map<Menu, Integer> informTotalOrderMenu() {
+        return this.menus;
+    }
 }
