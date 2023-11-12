@@ -18,6 +18,7 @@ public enum Menu {
     CHAMPAGNE("음료", "샴페인", 25000);
 
     public static final String BEVERAGE = "음료";
+    public static final String DESSERT = "디저트";
     private final String type;
     private final String name;
     private final int price;
@@ -43,5 +44,9 @@ public enum Menu {
 
     public boolean isBeverage() {
         return this.type.equals(BEVERAGE);
+    }
+
+    public boolean isDessert() {
+        return this.type.equals(DESSERT);
     }
 }
