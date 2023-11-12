@@ -13,9 +13,9 @@ public enum Menu {
     CHRISTMAS_SPAGHETTI("메인", "크리스마스파스타", 25000),
     CHOCOLATE_CAKE("디저트", "초코케이크", 15000),
     ICE_CREAM("디저트", "아이스크림", 5000),
-    ZERO_COKE("디저트", "제로콜라", 3000),
-    RED_WINE("디저트", "레드와인", 60000),
-    CHAMPAGNE("디저트", "샴페인", 25000);
+    ZERO_COKE("음료", "제로콜라", 3000),
+    RED_WINE("음료", "레드와인", 60000),
+    CHAMPAGNE("음료", "샴페인", 25000);
 
     private final String type;
     private final String name;
