@@ -128,4 +128,8 @@ public class Menus {
     public long totalDessertCount() {
         return menus.keySet().stream().filter(Menu::isDessert).mapToLong(this.menus::get).sum();
     }
+
+    public long totalMainCount() {
+        return menus.keySet().stream().filter(Menu::isMain).mapToLong(this.menus::get).sum();
+    }
 }

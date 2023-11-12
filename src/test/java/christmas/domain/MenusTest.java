@@ -117,4 +117,17 @@ public class MenusTest {
         // then
         assertThat(result).isEqualTo(6);
     }
+
+    @Test
+    @DisplayName("총 주문 메뉴의 메인 메뉴 개수를 구한다.")
+    void count_the_total_number_of_mains() {
+        // given
+        Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,아이스크림-4,제로콜라-1");
+
+        // when
+        long result = menus.totalMainCount();
+
+        // then
+        assertThat(result).isEqualTo(2);
+    }
 }
