@@ -27,4 +27,18 @@ public class SpecialDiscountPolicyTest {
     private int createDayOfMonth(int day) {
         return LocalDate.of(2023, 12, day).getDayOfMonth();
     }
+
+    @ParameterizedTest
+    @DisplayName("총 주문 금액에서 1000원 할인한다.")
+    @CsvSource(value = {"10000, 1000", "900, 900", "0,0"})
+    void calculate_discount_amount(int totalOrderAmount, int expected) {
+        // given
+        SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy();
+
+        // when
+        long result = specialDiscountPolicy.calculateDiscountAmount(totalOrderAmount);
+
+        // then
+        assertThat(result).isEqualTo(expected);
+    }
 }
