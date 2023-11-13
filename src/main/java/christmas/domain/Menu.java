@@ -54,4 +54,8 @@ public enum Menu {
     public boolean isMain() {
         return this.type.equals(MAIN);
     }
+
+    public long totalMenuPrice(long menuNumber) {
+        return this.price * menuNumber;
+    }
 }
