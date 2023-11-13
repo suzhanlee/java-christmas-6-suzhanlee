@@ -1,5 +1,6 @@
-package christmas.domain;
+package christmas.domain.discount.policy;
 
+import christmas.domain.Menus;
 import java.util.Map;
 
 public interface DiscountPolicy {

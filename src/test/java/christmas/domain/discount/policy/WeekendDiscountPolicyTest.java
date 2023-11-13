@@ -1,8 +1,9 @@
-package christmas.domain;
+package christmas.domain.discount.policy;
 
-import static christmas.domain.WeekendDiscountPolicy.WEEKEND_DISCOUNT;
+import static christmas.domain.discount.policy.WeekendDiscountPolicy.WEEKEND_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.Menus;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;

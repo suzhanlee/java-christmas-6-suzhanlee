@@ -1,11 +1,17 @@
-package christmas.domain;
+package christmas.domain.discount;
 
-import static christmas.domain.ChristmasDDayDiscountPolicy.CHRISTMAS_D_DAY_DISCOUNT;
-import static christmas.domain.GiftEvent.GIFT_EVENT;
-import static christmas.domain.SpecialDiscountPolicy.SPECIAL_DISCOUNT;
-import static christmas.domain.WeekDayDiscountPolicy.WEEK_DAY_DISCOUNT;
+import static christmas.domain.discount.policy.ChristmasDDayDiscountPolicy.CHRISTMAS_D_DAY_DISCOUNT;
+import static christmas.domain.discount.GiftEvent.GIFT_EVENT;
+import static christmas.domain.discount.policy.SpecialDiscountPolicy.SPECIAL_DISCOUNT;
+import static christmas.domain.discount.policy.WeekDayDiscountPolicy.WEEK_DAY_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.Menus;
+import christmas.domain.discount.policy.ChristmasDDayDiscountPolicy;
+import christmas.domain.discount.policy.DiscountPolicy;
+import christmas.domain.discount.policy.SpecialDiscountPolicy;
+import christmas.domain.discount.policy.WeekDayDiscountPolicy;
+import christmas.domain.discount.policy.WeekendDiscountPolicy;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;

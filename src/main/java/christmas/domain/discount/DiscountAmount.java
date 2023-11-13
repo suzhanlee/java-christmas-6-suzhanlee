@@ -1,7 +1,9 @@
-package christmas.domain;
+package christmas.domain.discount;
 
 import static java.time.Month.DECEMBER;
 
+import christmas.domain.Menus;
+import christmas.domain.discount.policy.DiscountPolicy;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;

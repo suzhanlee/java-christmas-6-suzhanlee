@@ -1,6 +1,6 @@
-package christmas.domain;
+package christmas.domain.discount.policy;
 
-import static christmas.domain.SpecialDay.NORMAL;
+import static christmas.domain.discount.policy.SpecialDay.NORMAL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;

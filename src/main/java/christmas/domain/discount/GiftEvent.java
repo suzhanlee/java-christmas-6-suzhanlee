@@ -1,7 +1,8 @@
-package christmas.domain;
+package christmas.domain.discount;
 
 import static christmas.domain.Menu.CHAMPAGNE;
 
+import christmas.domain.Menu;
 import java.util.HashMap;
 import java.util.Map;
 

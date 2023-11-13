@@ -1,8 +1,9 @@
-package christmas.domain;
+package christmas.domain.discount.policy;
 
-import static christmas.domain.ChristmasDDayDiscountPolicy.CHRISTMAS_D_DAY_DISCOUNT;
+import static christmas.domain.discount.policy.ChristmasDDayDiscountPolicy.CHRISTMAS_D_DAY_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.Menus;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;

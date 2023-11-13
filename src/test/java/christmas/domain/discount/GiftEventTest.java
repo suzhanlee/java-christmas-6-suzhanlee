@@ -1,9 +1,11 @@
-package christmas.domain;
+package christmas.domain.discount;
 
-import static christmas.domain.GiftEvent.GIFT_EVENT;
+import static christmas.domain.discount.GiftEvent.GIFT_EVENT;
 import static christmas.domain.Menu.CHAMPAGNE;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.Menu;
+import christmas.domain.discount.GiftEvent;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
