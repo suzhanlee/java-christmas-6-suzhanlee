@@ -73,4 +73,15 @@ class MenuTest {
         // then
         assertThat(result).isEqualTo(expected);
     }
+
+    @ParameterizedTest
+    @DisplayName("메뉴의 이름을 알려준다.")
+    @CsvSource(value = {"MUSHROOM_CREAM_SOUP, 양송이수프", "SEAFOOD_SPAGHETTI, 해산물파스타", "CHOCOLATE_CAKE, 초코케이크"})
+    void inform_menu_name(Menu menu, String expected) {
+        // when
+        String result = menu.getName();
+
+        // then
+        assertThat(result).isEqualTo(expected);
+    }
 }

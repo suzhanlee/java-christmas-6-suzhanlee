@@ -58,4 +58,8 @@ public enum Menu {
     public long totalMenuPrice(long menuNumber) {
         return this.price * menuNumber;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
