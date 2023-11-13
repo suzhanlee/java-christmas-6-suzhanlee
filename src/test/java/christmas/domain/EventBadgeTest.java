@@ -13,7 +13,18 @@ public class EventBadgeTest {
     @CsvSource(value = {"5000, STAR", "19999, TREE", "20000, SANTA"})
     void inform_event_badge_according_to_discount_amount(long discountAmount, EventBadge expected) {
         // when
-        EventBadge result = EventBadge.valeOf(discountAmount);
+        EventBadge result = EventBadge.valueOf(discountAmount);
+
+        // then
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @DisplayName("배지의 이름을 알려준다.")
+    @CsvSource(value = {"STAR, 별", "TREE, 트리", "SANTA, 산타"})
+    void inform_event_badge_name(EventBadge eventBadge, String expected) {
+        // when
+        String result = eventBadge.getName();
 
         // then
         assertThat(result).isEqualTo(expected);

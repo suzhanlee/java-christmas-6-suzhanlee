@@ -16,12 +16,16 @@ public enum EventBadge {
         this.maxDiscountAmount = maxDiscountAmount;
     }
 
-    public static EventBadge valeOf(long discountAmount) {
+    public static EventBadge valueOf(long discountAmount) {
         for (EventBadge eventBadge : EventBadge.values()) {
             if (discountAmount >= eventBadge.leastDiscountAmount && discountAmount < eventBadge.maxDiscountAmount) {
                 return eventBadge;
             }
         }
         return NOTHING;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
