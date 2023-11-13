@@ -18,11 +18,15 @@ public enum EventBadge {
 
     public static EventBadge valueOf(long discountAmount) {
         for (EventBadge eventBadge : EventBadge.values()) {
-            if (discountAmount >= eventBadge.leastDiscountAmount && discountAmount < eventBadge.maxDiscountAmount) {
+            if (matchable(discountAmount, eventBadge)) {
                 return eventBadge;
             }
         }
         return NOTHING;
+    }
+
+    private static boolean matchable(long discountAmount, EventBadge eventBadge) {
+        return discountAmount >= eventBadge.leastDiscountAmount && discountAmount < eventBadge.maxDiscountAmount;
     }
 
     public String getName() {
