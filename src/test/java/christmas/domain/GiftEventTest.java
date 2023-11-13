@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import static christmas.domain.GiftEvent.GIFT_EVENT;
 import static christmas.domain.Menu.CHAMPAGNE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,5 +40,24 @@ public class GiftEventTest {
         assertThat(result.containsKey(CHAMPAGNE)).isTrue();
         assertThat(result.get(CHAMPAGNE)).isEqualTo(1);
         assertThat(result.size()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("증정 이벤트로 받은 선물로 할인 가격을 알려준다.")
+    void calculate_discount_amount() {
+        // given
+        GiftEvent giftEvent = new GiftEvent();
+
+        // when
+        Map<String, Long> result = giftEvent.calculateDiscountAmount();
+
+        // then
+        assertThat(result).isEqualTo(createExpected());
+    }
+
+    private Map<String, Long> createExpected() {
+        Map<String, Long> expected = new HashMap<>();
+        expected.put(GIFT_EVENT, (long) 25000);
+        return expected;
     }
 }
