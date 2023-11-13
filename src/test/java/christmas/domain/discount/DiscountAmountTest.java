@@ -6,6 +6,7 @@ import static christmas.domain.discount.policy.SpecialDiscountPolicy.SPECIAL_DIS
 import static christmas.domain.discount.policy.WeekDayDiscountPolicy.WEEK_DAY_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.Menu;
 import christmas.domain.Menus;
 import christmas.domain.discount.policy.ChristmasDDayDiscountPolicy;
 import christmas.domain.discount.policy.DiscountPolicy;
@@ -53,5 +54,26 @@ public class DiscountAmountTest {
         benefitDetails.put(SPECIAL_DISCOUNT, 1000L);
         benefitDetails.put(GIFT_EVENT, 25000L);
         return benefitDetails;
+    }
+
+    @Test
+    @DisplayName("증정 상품이 있으면 증정 상품과 개수를 알려준다.")
+    void inform_if_there_is_gift() {
+        // given
+        LocalDate localDate = LocalDate.of(2023, 12, 3);
+        Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
+        DiscountAmount discountAmount = new DiscountAmount(createDiscountPolicies(localDate), new GiftEvent());
+
+        // when
+        Map<Menu, Integer> result = discountAmount.checkGift(menus.totalOrderAmount());
+
+        // then
+        assertThat(result).isEqualTo(createExpectedGift());
+    }
+
+    private Map<Menu, Integer> createExpectedGift() {
+        Map<Menu, Integer> gifts = new HashMap<>();
+        gifts.put(Menu.CHAMPAGNE, 1);
+        return gifts;
     }
 }

@@ -2,6 +2,7 @@ package christmas.domain.discount;
 
 import static java.time.Month.DECEMBER;
 
+import christmas.domain.Menu;
 import christmas.domain.Menus;
 import christmas.domain.discount.policy.DiscountPolicy;
 import java.time.LocalDate;
@@ -50,5 +51,12 @@ public class DiscountAmount {
         if (giftEvent.supports(menus.totalOrderAmount())) {
             benefitDetails.putAll(giftEvent.calculateDiscountAmount());
         }
+    }
+
+    public Map<Menu, Integer> checkGift(long totalOrderAmount) {
+        if (giftEvent.supports(totalOrderAmount)) {
+            return giftEvent.giveGift();
+        }
+        return new HashMap<>();
     }
 }
