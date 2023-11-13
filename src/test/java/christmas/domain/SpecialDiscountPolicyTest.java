@@ -1,9 +1,13 @@
 package christmas.domain;
 
+import static christmas.domain.SpecialDiscountPolicy.SPECIAL_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -14,31 +18,37 @@ public class SpecialDiscountPolicyTest {
     @CsvSource(value = {"3, true", "10, true", "17, true", "24, true", "25, true", "31, true", "2, false"})
     void discount_condition(int day, boolean expected) {
         // given
-        SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy();
-        int dayOfMonth = createDayOfMonth(day);
+        LocalDate localDate = LocalDate.of(2023, 12, day);
+        SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy(localDate);
 
         // when
-        boolean result = specialDiscountPolicy.supports(dayOfMonth);
+        boolean result = specialDiscountPolicy.supports();
 
         // then
         assertThat(result).isEqualTo(expected);
     }
 
-    private int createDayOfMonth(int day) {
-        return LocalDate.of(2023, 12, day).getDayOfMonth();
-    }
-
-    @ParameterizedTest
+    @Test
     @DisplayName("총 주문 금액에서 1000원 할인한다.")
-    @CsvSource(value = {"10000, 1000", "900, 900", "0,0"})
-    void calculate_discount_amount(int totalOrderAmount, int expected) {
+    void calculate_discount_amount() {
         // given
-        SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy();
+        LocalDate localDate = LocalDate.of(2023, 12, 10);
+        SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy(localDate);
 
         // when
-        long result = specialDiscountPolicy.calculateDiscountAmount(totalOrderAmount);
+        Map<String, Long> result = specialDiscountPolicy.calculateDiscountAmount(createMenus());
 
         // then
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(createExpected());
+    }
+
+    private Menus createMenus() {
+        return new Menus("해산물파스타-1");
+    }
+
+    private Map<String, Long> createExpected() {
+        Map<String, Long> expected = new HashMap<>();
+        expected.put(SPECIAL_DISCOUNT, 1000L);
+        return expected;
     }
 }

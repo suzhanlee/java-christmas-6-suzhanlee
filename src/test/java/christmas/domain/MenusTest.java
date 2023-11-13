@@ -130,4 +130,17 @@ public class MenusTest {
         // then
         assertThat(result).isEqualTo(2);
     }
+
+    @Test
+    @DisplayName("총 주문 금액을 구한다.")
+    void calculate_total_order_amount() {
+        // given
+        Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,아이스크림-4,제로콜라-1");
+
+        // when
+        long result = menus.totalOrderAmount();
+
+        // then
+        assertThat(result).isEqualTo(162000L);
+    }
 }

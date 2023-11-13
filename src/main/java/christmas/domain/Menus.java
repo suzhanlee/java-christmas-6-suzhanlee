@@ -3,6 +3,7 @@ package christmas.domain;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 public class Menus {
@@ -131,5 +132,14 @@ public class Menus {
 
     public long totalMainCount() {
         return menus.keySet().stream().filter(Menu::isMain).mapToLong(this.menus::get).sum();
+    }
+
+    public long totalOrderAmount() {
+        return menus.entrySet().stream().mapToLong(this::calculateTotalMenuPrice).sum();
+    }
+
+    private long calculateTotalMenuPrice(Entry<Menu, Integer> menuAndNumber) {
+        Menu menu = menuAndNumber.getKey();
+        return menu.totalMenuPrice(menuAndNumber.getValue());
     }
 }
