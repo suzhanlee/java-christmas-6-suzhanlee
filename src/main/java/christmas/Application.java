@@ -6,7 +6,7 @@ import christmas.exception.InputMenuException;
 import christmas.exception.InvalidVisitDateException;
 import christmas.exception.OrderMenuTypeException;
 import christmas.exception.TotalMenuNumberLimitException;
-import christmas.view.InputView;
+import christmas.view.input.InputView;
 import christmas.view.output.OutputView;
 
 public class Application {

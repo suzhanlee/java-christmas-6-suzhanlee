@@ -1,4 +1,4 @@
-package christmas.view;
+package christmas.view.input;
 
 import christmas.exception.InvalidVisitDateException;
 

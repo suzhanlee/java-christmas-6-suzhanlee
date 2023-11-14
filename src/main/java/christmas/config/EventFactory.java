@@ -1,9 +1,9 @@
 package christmas.config;
 
 import christmas.controller.EventController;
-import christmas.view.ChristmasConsoleService;
-import christmas.view.ConsoleService;
-import christmas.view.InputView;
+import christmas.view.input.ChristmasConsoleService;
+import christmas.view.input.ConsoleService;
+import christmas.view.input.InputView;
 import christmas.view.output.OutputView;
 
 public class EventFactory {
