@@ -15,7 +15,7 @@ public class Application {
     public static int getVisitDayOfMonth(InputView inputView) {
         try {
             return inputView.visitDayOfMonth();
-        } catch (IllegalStateException | NumberFormatException e) {
+        } catch (IllegalStateException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return getVisitDayOfMonth(inputView);
         }
