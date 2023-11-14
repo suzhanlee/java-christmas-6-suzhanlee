@@ -16,14 +16,26 @@ public class InputView {
     public int visitDayOfMonth() {
         try {
             System.out.println(INPUT_VISIT_DATE_MENT);
-            int visitDayOfMonth = Integer.parseInt(consoleService.readLine());
-            if (visitDayOfMonth < MIN_VISIT_DAY_OF_MONTH || visitDayOfMonth >= MAX_VISIT_DAY_OF_MONTH) {
-                throw new IllegalStateException(INVALID_VISIT_DATE_EXCEPTION);
-            }
+            int visitDayOfMonth = getVisitDayOfMonth();
+            validateDayOfMonth(visitDayOfMonth);
             return visitDayOfMonth;
         } catch (NumberFormatException e) {
             throw new IllegalStateException(INVALID_VISIT_DATE_EXCEPTION);
         }
+    }
+
+    private int getVisitDayOfMonth() {
+        return Integer.parseInt(consoleService.readLine());
+    }
+
+    private void validateDayOfMonth(int visitDayOfMonth) {
+        if (isDayOfMonth(visitDayOfMonth)) {
+            throw new IllegalStateException(INVALID_VISIT_DATE_EXCEPTION);
+        }
+    }
+
+    private boolean isDayOfMonth(int visitDayOfMonth) {
+        return visitDayOfMonth < MIN_VISIT_DAY_OF_MONTH || visitDayOfMonth >= MAX_VISIT_DAY_OF_MONTH;
     }
 
     public String menuAndNumber() {
