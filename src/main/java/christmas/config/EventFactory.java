@@ -16,7 +16,7 @@ public class EventFactory {
         return new InputView(consoleService());
     }
 
-    private ConsoleService consoleService() {
+    public ConsoleService consoleService() {
         return new ChristmasConsoleService();
     }
 

@@ -6,17 +6,21 @@ import christmas.exception.InputMenuException;
 import christmas.exception.InvalidVisitDateException;
 import christmas.exception.OrderMenuTypeException;
 import christmas.exception.TotalMenuNumberLimitException;
-import christmas.view.ChristmasConsoleService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
         EventFactory eventFactory = new EventFactory();
-        InputView inputView = eventFactory.inputView();
-        OutputView outputView = eventFactory.outputView();
-        EventController eventController = eventFactory.eventController();
-        startEvent(eventController, inputView, outputView, getVisitDayOfMonth(inputView, outputView), inputView.menuAndNumber());
+        try {
+            InputView inputView = eventFactory.inputView();
+            OutputView outputView = eventFactory.outputView();
+            EventController eventController = eventFactory.eventController();
+            startEvent(eventController, inputView, outputView, getVisitDayOfMonth(inputView, outputView),
+                    inputView.menuAndNumber());
+        } finally {
+            closeResource(eventFactory);
+        }
     }
 
     public static int getVisitDayOfMonth(InputView inputView, OutputView outputView) {
@@ -36,5 +40,9 @@ public class Application {
             outputView.printErrorMessage(e.getMessage());
             startEvent(eventController, inputView, outputView, visitDayOfMonth, inputView.menuAndNumber());
         }
+    }
+
+    private static void closeResource(EventFactory eventFactory) {
+        eventFactory.consoleService().close();
     }
 }
