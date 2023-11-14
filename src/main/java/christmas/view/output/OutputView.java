@@ -1,4 +1,23 @@
-package christmas.view;
+package christmas.view.output;
+
+import static christmas.view.output.OutputViewConstant.AMOUNT_PATTERN;
+import static christmas.view.output.OutputViewConstant.COLUMN_SPACE;
+import static christmas.view.output.OutputViewConstant.ENTER;
+import static christmas.view.output.OutputViewConstant.MINUS;
+import static christmas.view.output.OutputViewConstant.NOTHING;
+import static christmas.view.output.OutputViewConstant.NUMBER;
+import static christmas.view.output.OutputViewConstant.SPACE;
+import static christmas.view.output.OutputViewConstant.WON;
+import static christmas.view.output.OutputViewConstant.ZERO;
+import static christmas.view.output.OutputViewConstant.ZERO_WON;
+import static christmas.view.output.OutputViewMessage.BENEFIT_DETAILS_MESSAGE;
+import static christmas.view.output.OutputViewMessage.DECEMBER_EVENT_BADGE_MESSAGE;
+import static christmas.view.output.OutputViewMessage.ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT_MESSAGE;
+import static christmas.view.output.OutputViewMessage.EVENT_BENEFIT_PREVIEW_MESSAGE;
+import static christmas.view.output.OutputViewMessage.GIVE_AWAY_MENU_MESSAGE;
+import static christmas.view.output.OutputViewMessage.ORDER_MENU_MESSAGE;
+import static christmas.view.output.OutputViewMessage.TOTAL_BENEFIT_AMOUNT_MESSAGE;
+import static christmas.view.output.OutputViewMessage.TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT_MESSAGE;
 
 import christmas.domain.Menu;
 import christmas.domain.Menus;
@@ -8,25 +27,6 @@ import java.util.Map.Entry;
 import java.util.StringJoiner;
 
 public class OutputView {
-
-    public static final String EVENT_BENEFIT_PREVIEW_MESSAGE = "12월 %s일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n";
-    public static final String ORDER_MENU_MESSAGE = "<주문 메뉴>";
-    public static final String TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT_MESSAGE = "<할인 전 총주문 금액>";
-    public static final String GIVE_AWAY_MENU_MESSAGE = "<증정 메뉴>";
-    public static final String BENEFIT_DETAILS_MESSAGE = "<혜택 내역>";
-    public static final String TOTAL_BENEFIT_AMOUNT_MESSAGE = "<총혜택 금액>";
-    public static final String ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT_MESSAGE = "<할인 후 예상 결제 금액>";
-    public static final String DECEMBER_EVENT_BADGE_MESSAGE = "<12월 이벤트 배지>";
-    public static final String ENTER = "\n";
-    public static final String SPACE = " ";
-    public static final String NUMBER = "개";
-    public static final String AMOUNT_PATTERN = "###,###";
-    public static final String WON = "원";
-    public static final String NOTHING = "없음";
-    public static final String MINUS = "-";
-    public static final String COLUMN_SPACE = ": ";
-    public static final String ZERO_WON = "0원";
-    public static final int ZERO = 0;
 
     public void printEventBenefitPreviewMessage(int visitDayOfMonth) {
         System.out.printf(EVENT_BENEFIT_PREVIEW_MESSAGE, visitDayOfMonth);

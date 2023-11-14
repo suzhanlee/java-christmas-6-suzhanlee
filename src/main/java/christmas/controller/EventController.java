@@ -11,7 +11,7 @@ import christmas.domain.discount.policy.DiscountPolicy;
 import christmas.domain.discount.policy.SpecialDiscountPolicy;
 import christmas.domain.discount.policy.WeekDayDiscountPolicy;
 import christmas.domain.discount.policy.WeekendDiscountPolicy;
-import christmas.view.OutputView;
+import christmas.view.output.OutputView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
