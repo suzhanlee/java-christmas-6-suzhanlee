@@ -19,19 +19,28 @@ public class WooWaRestaurant {
 
     public OrderedMenuInfo order(LocalDate visitDate, Menus menus) {
         long totalOrderAmount = menus.totalOrderAmount();
-        Map<Menu, Integer> gifts = discountAmount.checkGift(totalOrderAmount);
-        Map<String, Long> benefitDetails = discountAmount.informBenefitDetails(menus, visitDate);
+        Map<Menu, Integer> gifts = getGifts(totalOrderAmount);
+        Map<String, Long> benefitDetails = getBenefits(visitDate, menus);
         long totalDiscountAmount = calculateTotalDiscountAmount(benefitDetails);
         long expectedPaymentAmount = calculateExpectedPaymentAmount(gifts, totalOrderAmount, totalDiscountAmount);
         EventBadge eventBadge = EventBadge.valueOf(totalDiscountAmount);
         return new OrderedMenuInfo(gifts, benefitDetails, totalDiscountAmount, expectedPaymentAmount, eventBadge);
     }
 
+    private Map<Menu, Integer> getGifts(long totalOrderAmount) {
+        return discountAmount.checkGift(totalOrderAmount);
+    }
+
+    private Map<String, Long> getBenefits(LocalDate visitDate, Menus menus) {
+        return discountAmount.informBenefitDetails(menus, visitDate);
+    }
+
     private long calculateTotalDiscountAmount(Map<String, Long> benefitDetails) {
         return benefitDetails.values().stream().mapToLong(discountAmount -> discountAmount).sum();
     }
 
-    private long calculateExpectedPaymentAmount(Map<Menu, Integer> gifts, long totalOrderAmount, long totalDiscountAmount) {
+    private long calculateExpectedPaymentAmount(Map<Menu, Integer> gifts, long totalOrderAmount,
+                                                long totalDiscountAmount) {
         long normalPaymentAmount = totalOrderAmount - totalDiscountAmount;
         if (receivedGift(gifts)) {
             return normalPaymentAmount + calculateTotalGiftPrice(gifts);
