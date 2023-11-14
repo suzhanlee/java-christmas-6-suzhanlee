@@ -4,12 +4,12 @@ import static christmas.domain.Menu.BBQ_RIB;
 import static christmas.domain.Menu.CHOCOLATE_CAKE;
 import static christmas.domain.Menu.T_BONE_STEAK;
 import static christmas.domain.Menu.ZERO_COKE;
-import static christmas.domain.Menus.ORDERED_MENU_TYPE_EXCEPTION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.exception.InputMenuException;
+import christmas.exception.OrderMenuTypeException;
 import christmas.exception.TotalMenuNumberLimitException;
 import java.util.HashMap;
 import java.util.Map;
@@ -75,8 +75,7 @@ public class MenusTest {
     void validate_menu_type(String menuNamesAndNumbers) {
         // when // then
         assertThatThrownBy(() -> new Menus(menuNamesAndNumbers))
-                .isExactlyInstanceOf(IllegalStateException.class)
-                .hasMessage(ORDERED_MENU_TYPE_EXCEPTION);
+                .isExactlyInstanceOf(OrderMenuTypeException.class);
     }
 
     @Test

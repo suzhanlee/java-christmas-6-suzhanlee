@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.exception.InputMenuException;
+import christmas.exception.OrderMenuTypeException;
 import christmas.exception.TotalMenuNumberLimitException;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,6 @@ public class Menus {
     public static final int MENU_INDEX = 0;
     public static final int MENU_NUMBER_INDEX = 1;
     public static final String COMMA = ",";
-    public static final String ORDERED_MENU_TYPE_EXCEPTION = "[ERROR] 주문시 음료만 주문할 수 없습니다.";
     private final Map<Menu, Integer> menus;
 
     public Menus(String menuForm) {
@@ -105,7 +105,7 @@ public class Menus {
 
     private void validateOrderedMenuType(Map<Menu, Integer> uniqueMenus) {
         if (unableToOrder(uniqueMenus)) {
-            throw new IllegalStateException(ORDERED_MENU_TYPE_EXCEPTION);
+            throw new OrderMenuTypeException();
         }
     }
 
