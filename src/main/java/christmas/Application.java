@@ -25,7 +25,7 @@ public class Application {
                                    String menuForm) {
         try {
             eventController.startEvent(visitDayOfMonth, menuForm);
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
             startEvent(eventController, inputView, visitDayOfMonth, inputView.menuAndNumber());
         }
