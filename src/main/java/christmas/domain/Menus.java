@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.exception.InputMenuException;
+import christmas.exception.TotalMenuNumberLimitException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,6 @@ public class Menus {
     public static final int MENU_INDEX = 0;
     public static final int MENU_NUMBER_INDEX = 1;
     public static final String COMMA = ",";
-    public static final String TOTAL_MENU_COUNT_EXCEPTION = "[ERROR] 한번에 주문할 수 있는 메뉴는 20개를 넘길 수 없습니다.";
     public static final String ORDERED_MENU_TYPE_EXCEPTION = "[ERROR] 주문시 음료만 주문할 수 없습니다.";
     private final Map<Menu, Integer> menus;
 
@@ -91,7 +91,7 @@ public class Menus {
 
     private void validateMenuTotalMenuCount(Map<Menu, Integer> uniqueMenus) {
         if (greaterThanTwenty(uniqueMenus)) {
-            throw new IllegalStateException(TOTAL_MENU_COUNT_EXCEPTION);
+            throw new TotalMenuNumberLimitException();
         }
     }
 

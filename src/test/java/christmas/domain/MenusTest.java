@@ -5,12 +5,12 @@ import static christmas.domain.Menu.CHOCOLATE_CAKE;
 import static christmas.domain.Menu.T_BONE_STEAK;
 import static christmas.domain.Menu.ZERO_COKE;
 import static christmas.domain.Menus.ORDERED_MENU_TYPE_EXCEPTION;
-import static christmas.domain.Menus.TOTAL_MENU_COUNT_EXCEPTION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.exception.InputMenuException;
+import christmas.exception.TotalMenuNumberLimitException;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
@@ -66,8 +66,7 @@ public class MenusTest {
     void validate_total_menu_of_orders(String menuNamesAndNumbers) {
         // when // then
         assertThatThrownBy(() -> new Menus(menuNamesAndNumbers))
-                .isExactlyInstanceOf(IllegalStateException.class)
-                .hasMessage(TOTAL_MENU_COUNT_EXCEPTION);
+                .isExactlyInstanceOf(TotalMenuNumberLimitException.class);
     }
 
     @ParameterizedTest
