@@ -27,7 +27,7 @@ public class Menus {
         List<String> overlappedMenus = split(menuForm);
         Map<Menu, Integer> uniqueMenus = createUniqueMenus(overlappedMenus);
         validateDuplication(uniqueMenus, overlappedMenus);
-        validateMenuCount(uniqueMenus);
+        validateMenusCount(uniqueMenus);
         validateMenuTotalMenuCount(uniqueMenus);
         validateOrderedMenuType(uniqueMenus);
         return uniqueMenus;
@@ -77,11 +77,13 @@ public class Menus {
         return actualMenuSize != expectedMenuSize;
     }
 
-    private void validateMenuCount(Map<Menu, Integer> uniqueMenus) {
-        for (Integer menuCount : uniqueMenus.values()) {
-            if (!existMenuOrder(menuCount)) {
-                throw new InputMenuException();
-            }
+    private void validateMenusCount(Map<Menu, Integer> uniqueMenus) {
+        uniqueMenus.values().forEach(this::validateMenuCount);
+    }
+
+    private void validateMenuCount(Integer menuCount) {
+        if (!existMenuOrder(menuCount)) {
+            throw new InputMenuException();
         }
     }
 
