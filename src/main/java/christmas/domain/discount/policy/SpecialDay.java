@@ -1,5 +1,7 @@
 package christmas.domain.discount.policy;
 
+import java.util.Arrays;
+
 public enum SpecialDay {
 
     THREE(3),
@@ -17,11 +19,10 @@ public enum SpecialDay {
     }
 
     public static SpecialDay valueOf(int dayOfMonth) {
-        for (SpecialDay specialDay : SpecialDay.values()) {
-            if (specialDay.day == dayOfMonth) {
-                return specialDay;
-            }
-        }
-        return NORMAL;
+        return Arrays.stream(SpecialDay.values()).filter(specialDay -> matchable(dayOfMonth, specialDay)).findFirst().orElse(NORMAL);
+    }
+
+    private static boolean matchable(int dayOfMonth, SpecialDay specialDay) {
+        return specialDay.day == dayOfMonth;
     }
 }
