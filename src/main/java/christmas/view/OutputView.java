@@ -127,4 +127,8 @@ public class OutputView {
         System.out.println(DECEMBER_EVENT_BADGE_MESSAGE);
         System.out.println(eventBadge);
     }
+
+    public void printErrorMessage(String message) {
+        System.out.println(message);
+    }
 }
