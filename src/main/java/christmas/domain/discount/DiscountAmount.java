@@ -12,6 +12,7 @@ import java.util.Map;
 
 public class DiscountAmount {
     public static final int MIN_ORDER_AMOUNT_FOR_DISCOUNT = 10000;
+    public static final int DISCOUNT_YEAR = 2023;
     private final List<DiscountPolicy> discountPolicies;
     private final GiftEvent giftEvent;
 
@@ -29,7 +30,7 @@ public class DiscountAmount {
     }
 
     private boolean discountable(Menus menus, LocalDate localDate) {
-        return menus.totalOrderAmount() >= MIN_ORDER_AMOUNT_FOR_DISCOUNT && localDate.getYear() == 2023
+        return menus.totalOrderAmount() >= MIN_ORDER_AMOUNT_FOR_DISCOUNT && localDate.getYear() == DISCOUNT_YEAR
                 && localDate.getMonth() == DECEMBER;
     }
 
