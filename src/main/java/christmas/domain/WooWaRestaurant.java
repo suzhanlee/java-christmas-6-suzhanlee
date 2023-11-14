@@ -13,7 +13,7 @@ public class WooWaRestaurant {
         this.discountAmount = discountAmount;
     }
 
-    public Menus findMenus(String menuForm) {
+    public Menus findMenusBy(String menuForm) {
         return new Menus(menuForm);
     }
 
