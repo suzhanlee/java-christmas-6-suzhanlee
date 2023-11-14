@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import static christmas.domain.Menus.INPUT_MENU_EXCEPTION;
+import christmas.exception.InputMenuException;
 
 public enum Menu {
 
@@ -36,7 +36,7 @@ public enum Menu {
                 return menu;
             }
         }
-        throw new IllegalStateException(INPUT_MENU_EXCEPTION);
+        throw new InputMenuException();
     }
 
     private static boolean isSame(String name, Menu menu) {

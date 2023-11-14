@@ -4,13 +4,13 @@ import static christmas.domain.Menu.BBQ_RIB;
 import static christmas.domain.Menu.CHOCOLATE_CAKE;
 import static christmas.domain.Menu.T_BONE_STEAK;
 import static christmas.domain.Menu.ZERO_COKE;
-import static christmas.domain.Menus.INPUT_MENU_EXCEPTION;
 import static christmas.domain.Menus.ORDERED_MENU_TYPE_EXCEPTION;
 import static christmas.domain.Menus.TOTAL_MENU_COUNT_EXCEPTION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.exception.InputMenuException;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
@@ -28,8 +28,7 @@ public class MenusTest {
 
         // when // then
         assertThatThrownBy(() -> new Menus(menuNamesAndNumbers))
-                .isExactlyInstanceOf(IllegalStateException.class)
-                .hasMessage(INPUT_MENU_EXCEPTION);
+                .isExactlyInstanceOf(InputMenuException.class);
     }
 
     @Test
@@ -49,8 +48,7 @@ public class MenusTest {
     void validate_duplicate_menu(String menuNamesAndNumbers) {
         // when // then
         assertThatThrownBy(() -> new Menus(menuNamesAndNumbers))
-                .isExactlyInstanceOf(IllegalStateException.class)
-                .hasMessage(INPUT_MENU_EXCEPTION);
+                .isExactlyInstanceOf(InputMenuException.class);
     }
 
     @ParameterizedTest
@@ -59,8 +57,7 @@ public class MenusTest {
     void validate_menu_count(String menuNamesAndNumbers) {
         // when // then
         assertThatThrownBy(() -> new Menus(menuNamesAndNumbers))
-                .isExactlyInstanceOf(IllegalStateException.class)
-                .hasMessage(INPUT_MENU_EXCEPTION);
+                .isExactlyInstanceOf(InputMenuException.class);
     }
 
     @ParameterizedTest

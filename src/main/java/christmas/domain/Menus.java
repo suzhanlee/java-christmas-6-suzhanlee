@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.exception.InputMenuException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,6 @@ import java.util.regex.Pattern;
 
 public class Menus {
     public static final String MENU_REGEX = "([가-힣]+-\\d+,?)+";
-    public static final String INPUT_MENU_EXCEPTION = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
     public static final String DASH = "-";
     public static final int DEFAULT_MENU_NUMBER_VALUE = 0;
     public static final int MENU_INDEX = 0;
@@ -35,7 +35,7 @@ public class Menus {
 
     private void validateMenuFormat(String menuForm) {
         if (!matchable(menuForm, createMenuPattern())) {
-            throw new IllegalStateException(INPUT_MENU_EXCEPTION);
+            throw new InputMenuException();
         }
     }
 
@@ -69,7 +69,7 @@ public class Menus {
 
     private void validateDuplication(Map<Menu, Integer> menus, List<String> menusAndNumbers) {
         if (isSame(menus.size(), menusAndNumbers.size())) {
-            throw new IllegalStateException(INPUT_MENU_EXCEPTION);
+            throw new InputMenuException();
         }
     }
 
@@ -80,7 +80,7 @@ public class Menus {
     private void validateMenuCount(Map<Menu, Integer> uniqueMenus) {
         for (Integer menuCount : uniqueMenus.values()) {
             if (!existMenuOrder(menuCount)) {
-                throw new IllegalStateException(INPUT_MENU_EXCEPTION);
+                throw new InputMenuException();
             }
         }
     }

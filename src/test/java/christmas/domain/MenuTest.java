@@ -1,11 +1,10 @@
 package christmas.domain;
 
-import static christmas.domain.Menus.INPUT_MENU_EXCEPTION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.exception.InputMenuException;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -26,8 +25,7 @@ class MenuTest {
     void find_menu_exception(String menuName) {
         // when // then
         assertThatThrownBy(() -> Menu.toMenu(menuName))
-                .isExactlyInstanceOf(IllegalStateException.class)
-                .hasMessage(INPUT_MENU_EXCEPTION);
+                .isExactlyInstanceOf(InputMenuException.class);
     }
 
     @ParameterizedTest
