@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.config.EventFactory;
 import christmas.controller.EventController;
 import christmas.exception.InputMenuException;
 import christmas.exception.InvalidVisitDateException;
@@ -11,9 +12,10 @@ import christmas.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
-        InputView inputView = new InputView(new ChristmasConsoleService());
-        OutputView outputView = new OutputView();
-        EventController eventController = new EventController(new OutputView());
+        EventFactory eventFactory = new EventFactory();
+        InputView inputView = eventFactory.inputView();
+        OutputView outputView = eventFactory.outputView();
+        EventController eventController = eventFactory.eventController();
         startEvent(eventController, inputView, outputView, getVisitDayOfMonth(inputView, outputView), inputView.menuAndNumber());
     }
 
