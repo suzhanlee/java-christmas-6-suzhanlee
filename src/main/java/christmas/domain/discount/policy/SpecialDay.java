@@ -19,7 +19,8 @@ public enum SpecialDay {
     }
 
     public static SpecialDay valueOf(int dayOfMonth) {
-        return Arrays.stream(SpecialDay.values()).filter(specialDay -> matchable(dayOfMonth, specialDay)).findFirst().orElse(NORMAL);
+        return Arrays.stream(SpecialDay.values()).filter(specialDay -> matchable(dayOfMonth, specialDay)).findFirst()
+                .orElse(NORMAL);
     }
 
     private static boolean matchable(int dayOfMonth, SpecialDay specialDay) {

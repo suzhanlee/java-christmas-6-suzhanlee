@@ -32,7 +32,8 @@ public class Application {
         }
     }
 
-    private static void startEvent(EventController eventController, InputView inputView, OutputView outputView, int visitDayOfMonth,
+    private static void startEvent(EventController eventController, InputView inputView, OutputView outputView,
+                                   int visitDayOfMonth,
                                    String menuForm) {
         try {
             eventController.startEvent(visitDayOfMonth, menuForm);

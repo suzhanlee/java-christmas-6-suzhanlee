@@ -1,7 +1,7 @@
 package christmas.domain.discount;
 
-import static christmas.domain.discount.policy.ChristmasDDayDiscountPolicy.CHRISTMAS_D_DAY_DISCOUNT;
 import static christmas.domain.discount.GiftEvent.GIFT_EVENT;
+import static christmas.domain.discount.policy.ChristmasDDayDiscountPolicy.CHRISTMAS_D_DAY_DISCOUNT;
 import static christmas.domain.discount.policy.SpecialDiscountPolicy.SPECIAL_DISCOUNT;
 import static christmas.domain.discount.policy.WeekDayDiscountPolicy.WEEK_DAY_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
