@@ -35,42 +35,6 @@ public class EventService {
         return createPreviewEventBenefitsDto(menus, menuInfo);
     }
 
-    private PreviewEventBenefitsDto createPreviewEventBenefitsDto(Menus menus, OrderedMenuInfo menuInfo) {
-        List<MenuDto> menuDtos = createMenuDtos(menus);
-        List<GiftDto> giftDtos = createGiftDtos(menuInfo.gifts());
-        Map<String, Long> benefitDetails = menuInfo.benefitDetails();
-        long totalDiscountAmount = menuInfo.totalDiscountAmount();
-        long expectedPaymentAmount = menuInfo.expectedPaymentAmount();
-        EventBadgeDto eventBadgeDto = EventBadgeDto.valueOf(menuInfo.eventBadge());
-        return new PreviewEventBenefitsDto(menuDtos, menus.totalOrderAmount(),
-                new MenuInfoDto(giftDtos, benefitDetails, totalDiscountAmount, expectedPaymentAmount, eventBadgeDto));
-    }
-
-    private List<GiftDto> createGiftDtos(Map<Menu, Integer> gifts) {
-
-        List<GiftDto> giftDtos = new ArrayList<>();
-
-        for (Entry<Menu, Integer> giftAndQuantity : gifts.entrySet()) {
-            String giftName = giftAndQuantity.getKey().getName();
-            Integer quantity = giftAndQuantity.getValue();
-            giftDtos.add(GiftDto.valueOf(giftName, quantity));
-        }
-        return giftDtos;
-    }
-
-    private List<MenuDto> createMenuDtos(Menus menus) {
-        Map<Menu, Integer> menusMap = menus.getMenus();
-
-        List<MenuDto> menuDtos = new ArrayList<>();
-
-        for (Entry<Menu, Integer> menuAndQuantity : menusMap.entrySet()) {
-            String menuName = menuAndQuantity.getKey().getName();
-            Integer quantity = menuAndQuantity.getValue();
-            menuDtos.add(MenuDto.valueOf(menuName, quantity));
-        }
-        return menuDtos;
-    }
-
     private LocalDate createVisitDate(int visitDayOfMonth) {
         return LocalDate.of(DISCOUNT_YEAR, DISCOUNT_MONTH, visitDayOfMonth);
     }
@@ -86,5 +50,40 @@ public class EventService {
         discountPolicies.add(new WeekendDiscountPolicy(visitDate));
         discountPolicies.add(new SpecialDiscountPolicy(visitDate));
         return discountPolicies;
+    }
+
+    private PreviewEventBenefitsDto createPreviewEventBenefitsDto(Menus menus, OrderedMenuInfo menuInfo) {
+        List<MenuDto> menuDtos = createMenuDtos(menus);
+        List<GiftDto> giftDtos = createGiftDtos(menuInfo.gifts());
+        Map<String, Long> benefitDetails = menuInfo.benefitDetails();
+        long totalDiscountAmount = menuInfo.totalDiscountAmount();
+        long expectedPaymentAmount = menuInfo.expectedPaymentAmount();
+        EventBadgeDto eventBadgeDto = EventBadgeDto.valueOf(menuInfo.eventBadge());
+        return new PreviewEventBenefitsDto(menuDtos, menus.totalOrderAmount(),
+                new MenuInfoDto(giftDtos, benefitDetails, totalDiscountAmount, expectedPaymentAmount, eventBadgeDto));
+    }
+
+    private List<MenuDto> createMenuDtos(Menus menus) {
+        List<MenuDto> menuDtos = new ArrayList<>();
+        menus.getMenus().entrySet().forEach(menuAndQuantity -> addMenusDtoTo(menuAndQuantity, menuDtos));
+        return menuDtos;
+    }
+
+    private void addMenusDtoTo(Entry<Menu, Integer> menuAndQuantity, List<MenuDto> menuDtos) {
+        String menuName = menuAndQuantity.getKey().getName();
+        Integer quantity = menuAndQuantity.getValue();
+        menuDtos.add(MenuDto.valueOf(menuName, quantity));
+    }
+
+    private List<GiftDto> createGiftDtos(Map<Menu, Integer> gifts) {
+        List<GiftDto> giftDtos = new ArrayList<>();
+        gifts.entrySet().forEach(giftAndQuantity -> addGiftDtoTo(giftAndQuantity, giftDtos));
+        return giftDtos;
+    }
+
+    private void addGiftDtoTo(Entry<Menu, Integer> giftAndQuantity, List<GiftDto> giftDtos) {
+        String giftName = giftAndQuantity.getKey().getName();
+        Integer quantity = giftAndQuantity.getValue();
+        giftDtos.add(GiftDto.valueOf(giftName, quantity));
     }
 }
