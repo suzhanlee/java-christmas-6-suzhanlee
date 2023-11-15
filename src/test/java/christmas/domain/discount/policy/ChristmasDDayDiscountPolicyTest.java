@@ -18,8 +18,8 @@ public class ChristmasDDayDiscountPolicyTest {
     @CsvSource(value = {"1, true", "25, true", "26, false", "31, false"})
     void discount_condition(int day, boolean expected) {
         // given
-        LocalDate localDate = LocalDate.of(2023, 12, day);
-        ChristmasDDayDiscountPolicy christmasDDayDiscountPolicy = new ChristmasDDayDiscountPolicy(localDate);
+        LocalDate visitDate = LocalDate.of(2023, 12, day);
+        ChristmasDDayDiscountPolicy christmasDDayDiscountPolicy = new ChristmasDDayDiscountPolicy(visitDate);
 
         // when
         boolean discountable = christmasDDayDiscountPolicy.supports();
@@ -33,9 +33,9 @@ public class ChristmasDDayDiscountPolicyTest {
     @CsvSource(value = {"1, 1000", "2, 1100", "25, 3400"})
     void calculate_discount_amount(int day, long discountAmount) {
         // given
-        LocalDate localDate = LocalDate.of(2023, 12, day);
+        LocalDate visitDate = LocalDate.of(2023, 12, day);
         Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
-        ChristmasDDayDiscountPolicy christmasDDayDiscountPolicy = new ChristmasDDayDiscountPolicy(localDate);
+        ChristmasDDayDiscountPolicy christmasDDayDiscountPolicy = new ChristmasDDayDiscountPolicy(visitDate);
 
         // when
         Map<String, Long> result = christmasDDayDiscountPolicy.calculateDiscountAmount(menus);
