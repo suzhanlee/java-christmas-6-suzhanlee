@@ -15,6 +15,7 @@ import christmas.domain.discount.policy.WeekDayDiscountPolicy;
 import christmas.domain.discount.policy.WeekendDiscountPolicy;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,8 +96,8 @@ public class DiscountAmountTest {
         assertThat(result).isEqualTo(createNoBenefitDetails());
     }
 
-    private HashMap<String, Long> createNoBenefitDetails() {
-        return new HashMap<>();
+    private Map<String, Long> createNoBenefitDetails() {
+        return Collections.emptyMap();
     }
 
     @Test

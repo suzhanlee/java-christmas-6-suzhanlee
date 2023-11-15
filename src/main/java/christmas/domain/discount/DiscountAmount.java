@@ -6,6 +6,7 @@ import christmas.domain.Menu;
 import christmas.domain.Menus;
 import christmas.domain.discount.policy.DiscountPolicy;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,10 @@ public class DiscountAmount {
         if (giftEvent.supports(totalOrderAmount)) {
             return giftEvent.giveGift();
         }
-        return new HashMap<>();
+        return createEmptyGiftBox();
+    }
+
+    private Map<Menu, Integer> createEmptyGiftBox() {
+        return Collections.emptyMap();
     }
 }
