@@ -58,7 +58,7 @@ public class WooWaRestaurant {
 
     private long addGiftPrice(Entry<Menu, Integer> gift) {
         Menu menu = gift.getKey();
-        Integer menuNumber = gift.getValue();
-        return menu.totalMenuPrice(menuNumber);
+        Integer quantity = gift.getValue();
+        return menu.totalMenuPrice(quantity);
     }
 }
