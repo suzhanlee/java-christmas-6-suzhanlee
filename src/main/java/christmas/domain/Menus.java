@@ -12,9 +12,9 @@ import java.util.regex.Pattern;
 public class Menus {
     public static final String MENU_REGEX = "([가-힣]+-\\d+,?)+";
     public static final String DASH = "-";
-    public static final int DEFAULT_MENU_NUMBER_VALUE = 0;
+    public static final int DEFAULT_MENU_QUANTITY_VALUE = 0;
     public static final int MENU_INDEX = 0;
-    public static final int MENU_NUMBER_INDEX = 1;
+    public static final int MENU_QUANTITY_INDEX = 1;
     public static final String COMMA = ",";
     private final Map<Menu, Integer> menus;
 
@@ -27,8 +27,8 @@ public class Menus {
         List<String> overlappedMenus = split(menuForm);
         Map<Menu, Integer> uniqueMenus = createUniqueMenus(overlappedMenus);
         validateDuplication(uniqueMenus, overlappedMenus);
-        validateMenusCount(uniqueMenus);
-        validateMenuTotalMenuCount(uniqueMenus);
+        validateMenusQuantity(uniqueMenus);
+        validateMenuTotalMenuQuantity(uniqueMenus);
         validateOrderedMenuType(uniqueMenus);
         return uniqueMenus;
     }
@@ -51,24 +51,24 @@ public class Menus {
         return List.of(menuForm.split(COMMA));
     }
 
-    private Map<Menu, Integer> createUniqueMenus(List<String> menusAndNumbers) {
-        Map<Menu, Integer> menus = new HashMap<>();
-        menusAndNumbers.forEach(menuAndNumber -> addMenuAndNumber(separateMenuAndNumber(menuAndNumber), menus));
-        return menus;
+    private Map<Menu, Integer> createUniqueMenus(List<String> menusAndQuantity) {
+        Map<Menu, Integer> uniqueMenus = new HashMap<>();
+        menusAndQuantity.forEach(menuAndQuantity -> addMenuAndQuantity(separateMenuAndQuantity(menuAndQuantity), uniqueMenus));
+        return uniqueMenus;
     }
 
-    private void addMenuAndNumber(List<String> seperatedMenuAndNumber, Map<Menu, Integer> menuMap) {
-        Menu menu = Menu.toMenu(seperatedMenuAndNumber.get(MENU_INDEX));
-        int menuNumber = Integer.parseInt(seperatedMenuAndNumber.get(MENU_NUMBER_INDEX));
-        menuMap.put(menu, menuMap.getOrDefault(menu, DEFAULT_MENU_NUMBER_VALUE) + menuNumber);
+    private void addMenuAndQuantity(List<String> seperatedMenuAndQuantity, Map<Menu, Integer> uniqueMenus) {
+        Menu menu = Menu.toMenu(seperatedMenuAndQuantity.get(MENU_INDEX));
+        int quantity = Integer.parseInt(seperatedMenuAndQuantity.get(MENU_QUANTITY_INDEX));
+        uniqueMenus.put(menu, uniqueMenus.getOrDefault(menu, DEFAULT_MENU_QUANTITY_VALUE) + quantity);
     }
 
-    private List<String> separateMenuAndNumber(String menuAndNumber) {
-        return List.of(menuAndNumber.split(DASH));
+    private List<String> separateMenuAndQuantity(String menuAndQuantity) {
+        return List.of(menuAndQuantity.split(DASH));
     }
 
-    private void validateDuplication(Map<Menu, Integer> menus, List<String> menusAndNumbers) {
-        if (isSame(menus.size(), menusAndNumbers.size())) {
+    private void validateDuplication(Map<Menu, Integer> menus, List<String> menusAndQuantity) {
+        if (isSame(menus.size(), menusAndQuantity.size())) {
             throw new InputMenuException();
         }
     }
@@ -77,32 +77,32 @@ public class Menus {
         return actualMenuSize != expectedMenuSize;
     }
 
-    private void validateMenusCount(Map<Menu, Integer> uniqueMenus) {
-        uniqueMenus.values().forEach(this::validateMenuCount);
+    private void validateMenusQuantity(Map<Menu, Integer> uniqueMenus) {
+        uniqueMenus.values().forEach(this::validateMenuQuantity);
     }
 
-    private void validateMenuCount(Integer menuCount) {
-        if (!existMenuOrder(menuCount)) {
+    private void validateMenuQuantity(int quantity) {
+        if (!existMenuOrder(quantity)) {
             throw new InputMenuException();
         }
     }
 
-    private boolean existMenuOrder(Integer menuCount) {
-        return menuCount >= 1;
+    private boolean existMenuOrder(int quantity) {
+        return quantity >= 1;
     }
 
-    private void validateMenuTotalMenuCount(Map<Menu, Integer> uniqueMenus) {
+    private void validateMenuTotalMenuQuantity(Map<Menu, Integer> uniqueMenus) {
         if (greaterThanTwenty(uniqueMenus)) {
             throw new TotalMenuNumberLimitException();
         }
     }
 
     private boolean greaterThanTwenty(Map<Menu, Integer> uniqueMenus) {
-        return getTotalMenuCount(uniqueMenus) > 20;
+        return getTotalMenuQuantity(uniqueMenus) > 20;
     }
 
-    private int getTotalMenuCount(Map<Menu, Integer> uniqueMenus) {
-        return uniqueMenus.values().stream().mapToInt(menuCount -> menuCount).sum();
+    private int getTotalMenuQuantity(Map<Menu, Integer> uniqueMenus) {
+        return uniqueMenus.values().stream().mapToInt(menuQuantity -> menuQuantity).sum();
     }
 
     private void validateOrderedMenuType(Map<Menu, Integer> uniqueMenus) {
@@ -140,9 +140,9 @@ public class Menus {
         return menus.entrySet().stream().mapToLong(this::calculateTotalMenuPrice).sum();
     }
 
-    private long calculateTotalMenuPrice(Entry<Menu, Integer> menuAndNumber) {
-        Menu menu = menuAndNumber.getKey();
-        return menu.totalMenuPrice(menuAndNumber.getValue());
+    private long calculateTotalMenuPrice(Entry<Menu, Integer> menuAndQuantity) {
+        Menu menu = menuAndQuantity.getKey();
+        return menu.totalMenuPrice(menuAndQuantity.getValue());
     }
 
     public Map<Menu, Integer> getMenus() {
