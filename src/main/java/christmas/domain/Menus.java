@@ -144,4 +144,8 @@ public class Menus {
         Menu menu = menuAndNumber.getKey();
         return menu.totalMenuPrice(menuAndNumber.getValue());
     }
+
+    public Map<Menu, Integer> getMenus() {
+        return menus;
+    }
 }
