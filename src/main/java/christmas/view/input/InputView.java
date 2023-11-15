@@ -38,7 +38,7 @@ public class InputView {
         return visitDayOfMonth < MIN_VISIT_DAY_OF_MONTH || visitDayOfMonth >= MAX_VISIT_DAY_OF_MONTH;
     }
 
-    public String menuAndNumber() {
+    public String menuAndQuantity() {
         System.out.println(INPUT_MENU_AND_NUMBER_MESSAGE);
         return consoleService.readLine();
     }

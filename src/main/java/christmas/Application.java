@@ -17,7 +17,7 @@ public class Application {
             OutputView outputView = eventFactory.outputView();
             EventController eventController = eventFactory.eventController();
             startEvent(eventController, inputView, outputView, getVisitDayOfMonth(inputView, outputView),
-                    inputView.menuAndNumber());
+                    inputView.menuAndQuantity());
         } finally {
             closeResource(eventFactory);
         }
@@ -39,7 +39,7 @@ public class Application {
             eventController.startEvent(visitDayOfMonth, menuForm);
         } catch (InputMenuException | OrderMenuTypeException | TotalMenuNumberLimitException e) {
             outputView.printErrorMessage(e.getMessage());
-            startEvent(eventController, inputView, outputView, visitDayOfMonth, inputView.menuAndNumber());
+            startEvent(eventController, inputView, outputView, visitDayOfMonth, inputView.menuAndQuantity());
         }
     }
 
