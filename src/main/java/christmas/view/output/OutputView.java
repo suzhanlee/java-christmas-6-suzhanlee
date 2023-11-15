@@ -79,27 +79,27 @@ public class OutputView {
         gifts.append(giftDto.getName()).append(SPACE).append(giftDto.getQuantity()).append(NUMBER).append(ENTER);
     }
 
-    public void printBenefitDetails(Map<String, Long> benefitDetails) {
+    public void printBenefitDetails(Map<String, Long> benefitDetailsDto) {
         System.out.println(BENEFIT_DETAILS_MESSAGE);
-        if (benefitDetails.isEmpty()) {
+        if (benefitDetailsDto.isEmpty()) {
             System.out.println(NOTHING);
             return;
         }
-        System.out.println(createBenefitDetails(benefitDetails, getAmountFormat()));
+        System.out.println(createBenefitDetails(benefitDetailsDto, getAmountFormat()));
     }
 
-    private StringBuilder createBenefitDetails(Map<String, Long> benefitDetails, DecimalFormat discountAmountFormat) {
-        StringBuilder benefitDetailStorage = new StringBuilder();
-        benefitDetails.entrySet().forEach(
-                benefitDetail -> addBenefitDetailTo(benefitDetail, benefitDetailStorage, discountAmountFormat));
-        return benefitDetailStorage;
+    private StringBuilder createBenefitDetails(Map<String, Long> benefitDetailsDto, DecimalFormat discountAmountFormat) {
+        StringBuilder benefitDetails = new StringBuilder();
+        benefitDetailsDto.entrySet().forEach(
+                benefitDetail -> addBenefitDetailTo(benefitDetail, benefitDetails, discountAmountFormat));
+        return benefitDetails;
     }
 
-    private void addBenefitDetailTo(Entry<String, Long> benefitDetail, StringBuilder benefitDetailStorage,
+    private void addBenefitDetailTo(Entry<String, Long> benefitDetailDto, StringBuilder benefitDetails,
                                     DecimalFormat discountAmountFormat) {
-        String discountType = benefitDetail.getKey();
-        Long discountAmount = benefitDetail.getValue();
-        benefitDetailStorage.append(discountType).append(COLUMN_SPACE).append(MINUS)
+        String discountType = benefitDetailDto.getKey();
+        Long discountAmount = benefitDetailDto.getValue();
+        benefitDetails.append(discountType).append(COLUMN_SPACE).append(MINUS)
                 .append(discountAmountFormat.format(discountAmount)).append(WON).append(ENTER);
     }
 

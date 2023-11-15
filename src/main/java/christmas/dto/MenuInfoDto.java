@@ -6,15 +6,15 @@ import java.util.Map;
 public class MenuInfoDto {
 
     private final List<GiftDto> giftDtos;
-    private final Map<String, Long> benefitDetails;
+    private final Map<String, Long> benefitDetailsDto;
     private final long totalDiscountAmount;
     private final long expectedPaymentAmount;
     private final EventBadgeDto eventBadgeDto;
 
-    public MenuInfoDto(List<GiftDto> giftDtos, Map<String, Long> benefitDetails, long totalDiscountAmount,
+    public MenuInfoDto(List<GiftDto> giftDtos, Map<String, Long> benefitDetailsDto, long totalDiscountAmount,
                        long expectedPaymentAmount, EventBadgeDto eventBadgeDto) {
         this.giftDtos = giftDtos;
-        this.benefitDetails = benefitDetails;
+        this.benefitDetailsDto = benefitDetailsDto;
         this.totalDiscountAmount = totalDiscountAmount;
         this.expectedPaymentAmount = expectedPaymentAmount;
         this.eventBadgeDto = eventBadgeDto;
@@ -25,7 +25,7 @@ public class MenuInfoDto {
     }
 
     public Map<String, Long> getBenefitDetails() {
-        return benefitDetails;
+        return benefitDetailsDto;
     }
 
     public long getTotalDiscountAmount() {
