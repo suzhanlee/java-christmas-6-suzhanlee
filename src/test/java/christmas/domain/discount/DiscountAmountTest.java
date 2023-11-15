@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class DiscountAmountTest {
 
@@ -75,5 +78,22 @@ public class DiscountAmountTest {
         Map<Menu, Integer> gifts = new HashMap<>();
         gifts.put(Menu.CHAMPAGNE, 1);
         return gifts;
+    }
+
+    @ParameterizedTest
+    @DisplayName("2023년 12월 1일 에서 31일 사이가 아니라면 할인 이벤트를 적용하지 않는다.")
+    @CsvSource(value = {"23, 11, 30", "24, 1, 1"})
+    void no_discount_if_it_is_not_within_period(int year, int month, int dayOfMonth) {
+        // given
+        LocalDate visitDate = LocalDate.of(year, month, dayOfMonth);
+        Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
+        DiscountAmount discountAmount = new DiscountAmount(createDiscountPolicies(visitDate), new GiftEvent());
+
+        // when
+        Map<String, Long> result = discountAmount.informBenefitDetails(menus, visitDate);
+
+        // then
+        assertThat(result).isEqualTo(new HashMap<>());
+
     }
 }
