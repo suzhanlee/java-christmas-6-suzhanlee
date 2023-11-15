@@ -19,8 +19,8 @@ public class SpecialDiscountPolicyTest {
     @CsvSource(value = {"3, true", "10, true", "17, true", "24, true", "25, true", "31, true", "2, false"})
     void discount_condition(int day, boolean expected) {
         // given
-        LocalDate localDate = LocalDate.of(2023, 12, day);
-        SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy(localDate);
+        LocalDate visitDate = LocalDate.of(2023, 12, day);
+        SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy(visitDate);
 
         // when
         boolean result = specialDiscountPolicy.supports();
@@ -33,8 +33,8 @@ public class SpecialDiscountPolicyTest {
     @DisplayName("총 주문 금액에서 1000원 할인한다.")
     void calculate_discount_amount() {
         // given
-        LocalDate localDate = LocalDate.of(2023, 12, 10);
-        SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy(localDate);
+        LocalDate visitDate = LocalDate.of(2023, 12, 10);
+        SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy(visitDate);
 
         // when
         Map<String, Long> result = specialDiscountPolicy.calculateDiscountAmount(createMenus());

@@ -7,14 +7,14 @@ import java.util.Map;
 
 public class SpecialDiscountPolicy implements DiscountPolicy {
     public static final String SPECIAL_DISCOUNT = "특별 할인";
-    private final LocalDate localDate;
+    private final LocalDate visitDate;
 
-    public SpecialDiscountPolicy(LocalDate localDate) {
-        this.localDate = localDate;
+    public SpecialDiscountPolicy(LocalDate visitDate) {
+        this.visitDate = visitDate;
     }
 
     public boolean supports() {
-        return SpecialDay.valueOf(localDate.getDayOfMonth()) != SpecialDay.NORMAL;
+        return SpecialDay.valueOf(visitDate.getDayOfMonth()) != SpecialDay.NORMAL;
     }
 
     public Map<String, Long> calculateDiscountAmount(Menus menus) {
