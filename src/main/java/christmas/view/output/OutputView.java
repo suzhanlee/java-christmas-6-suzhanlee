@@ -4,6 +4,7 @@ import static christmas.view.output.OutputViewConstant.AMOUNT_PATTERN;
 import static christmas.view.output.OutputViewConstant.COLUMN_SPACE;
 import static christmas.view.output.OutputViewConstant.ENTER;
 import static christmas.view.output.OutputViewConstant.MINUS;
+import static christmas.view.output.OutputViewConstant.NONE_EVENT_BADGE;
 import static christmas.view.output.OutputViewConstant.NOTHING;
 import static christmas.view.output.OutputViewConstant.NUMBER;
 import static christmas.view.output.OutputViewConstant.SPACE;
@@ -19,9 +20,10 @@ import static christmas.view.output.OutputViewMessage.ORDER_MENU_MESSAGE;
 import static christmas.view.output.OutputViewMessage.TOTAL_BENEFIT_AMOUNT_MESSAGE;
 import static christmas.view.output.OutputViewMessage.TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT_MESSAGE;
 
-import christmas.domain.Menu;
-import christmas.domain.Menus;
+import christmas.dto.GiftDto;
+import christmas.dto.MenuDto;
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringJoiner;
@@ -32,21 +34,19 @@ public class OutputView {
         System.out.printf(EVENT_BENEFIT_PREVIEW_MESSAGE, visitDayOfMonth);
     }
 
-    public void printOrderMenu(Menus menus) {
+    public void printOrderMenus(List<MenuDto> menuDtos) {
         System.out.println(ORDER_MENU_MESSAGE);
-        System.out.println(createOrderMenu(menus));
+        System.out.println(createOrderMenus(menuDtos));
     }
 
-    private StringJoiner createOrderMenu(Menus menus) {
-        StringJoiner orderMenu = new StringJoiner(ENTER);
-        menus.informTotalOrderMenu().entrySet().forEach(menu -> addOrderMenuTo(menu, orderMenu));
-        return orderMenu;
+    private StringJoiner createOrderMenus(List<MenuDto> menuDtos) {
+        StringJoiner orderMenus = new StringJoiner(ENTER);
+        menuDtos.forEach(menuDto -> addOrderMenuTo(menuDto, orderMenus));
+        return orderMenus;
     }
 
-    private void addOrderMenuTo(Entry<Menu, Integer> menuAndNumber, StringJoiner orderMenu) {
-        String menuName = menuAndNumber.getKey().getName();
-        Integer menuNumber = menuAndNumber.getValue();
-        orderMenu.add(menuName + SPACE + menuNumber + NUMBER);
+    private void addOrderMenuTo(MenuDto menuDto, StringJoiner orderMenu) {
+        orderMenu.add(menuDto.getName() + SPACE + menuDto.getQuantity() + NUMBER);
     }
 
     public void printTotalOrderAmount(long totalOrderAmount) {
@@ -58,27 +58,25 @@ public class OutputView {
         return new DecimalFormat(AMOUNT_PATTERN);
     }
 
-    public void printGifts(Map<Menu, Integer> giftsAndNumbers) {
+    public void printGifts(List<GiftDto> giftDtos) {
         System.out.println(GIVE_AWAY_MENU_MESSAGE);
 
-        if (giftsAndNumbers.isEmpty()) {
+        if (giftDtos.isEmpty()) {
             System.out.println(NOTHING);
             return;
         }
 
-        System.out.println(createGifts(giftsAndNumbers));
+        System.out.println(createGifts(giftDtos));
     }
 
-    private StringBuilder createGifts(Map<Menu, Integer> giftsAndNumbers) {
+    private StringBuilder createGifts(List<GiftDto> giftDtos) {
         StringBuilder gifts = new StringBuilder();
-        giftsAndNumbers.entrySet().forEach(gift -> addGiftTo(gift, gifts));
+        giftDtos.forEach(giftDto -> addGiftTo(giftDto, gifts));
         return gifts;
     }
 
-    private void addGiftTo(Entry<Menu, Integer> gift, StringBuilder giftStorage) {
-        Menu giftMenu = gift.getKey();
-        Integer giftNumber = gift.getValue();
-        giftStorage.append(giftMenu.getName()).append(SPACE).append(giftNumber).append(NUMBER).append(ENTER);
+    private void addGiftTo(GiftDto giftDto, StringBuilder gifts) {
+        gifts.append(giftDto.getName()).append(SPACE).append(giftDto.getQuantity()).append(NUMBER).append(ENTER);
     }
 
     public void printBenefitDetails(Map<String, Long> benefitDetails) {
@@ -125,7 +123,15 @@ public class OutputView {
 
     public void printEventBadge(String eventBadge) {
         System.out.println(DECEMBER_EVENT_BADGE_MESSAGE);
-        System.out.println(eventBadge);
+        if (isExist(eventBadge)) {
+            System.out.println(eventBadge);
+            return;
+        }
+        System.out.println(NOTHING);
+    }
+
+    private boolean isExist(String eventBadge) {
+        return NONE_EVENT_BADGE.equals(eventBadge);
     }
 
     public void printErrorMessage(String message) {

@@ -13,4 +13,8 @@ public class EventBadgeDto {
     public static EventBadgeDto valueOf(EventBadge eventBadge) {
         return new EventBadgeDto(eventBadge.getName());
     }
+
+    public String getName() {
+        return name;
+    }
 }

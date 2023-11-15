@@ -13,4 +13,12 @@ public class GiftDto {
     public static GiftDto valueOf(String name, int quantity) {
         return new GiftDto(name, quantity);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }

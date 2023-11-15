@@ -13,4 +13,12 @@ public class MenuDto {
     public static MenuDto valueOf(String name, int quantity) {
         return new MenuDto(name, quantity);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }

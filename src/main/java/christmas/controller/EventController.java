@@ -1,76 +1,33 @@
 package christmas.controller;
 
-import christmas.domain.EventBadge;
-import christmas.domain.Menus;
-import christmas.domain.OrderedMenuInfo;
-import christmas.domain.WooWaRestaurant;
-import christmas.domain.discount.DiscountAmount;
-import christmas.domain.discount.GiftEvent;
-import christmas.domain.discount.policy.ChristmasDDayDiscountPolicy;
-import christmas.domain.discount.policy.DiscountPolicy;
-import christmas.domain.discount.policy.SpecialDiscountPolicy;
-import christmas.domain.discount.policy.WeekDayDiscountPolicy;
-import christmas.domain.discount.policy.WeekendDiscountPolicy;
+import christmas.dto.MenuInfoDto;
+import christmas.dto.PreviewEventBenefitsDto;
+import christmas.service.EventService;
 import christmas.view.output.OutputView;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EventController {
-    public static final int DISCOUNT_YEAR = 2023;
-    public static final int DISCOUNT_MONTH = 12;
-    public static final String NONE_EVENT_BADGE = "없음";
     private final OutputView outputView;
+    private final EventService eventService;
 
-    public EventController(OutputView outputView) {
+    public EventController(OutputView outputView, EventService eventService) {
         this.outputView = outputView;
+        this.eventService = eventService;
     }
 
     public void startEvent(int visitDayOfMonth, String menuForm) {
-        LocalDate visitDate = createVisitDate(visitDayOfMonth);
-        WooWaRestaurant wooWaRestaurant = createWooWaRestaurant(visitDate);
-        Menus menus = wooWaRestaurant.findMenusBy(menuForm);
-        OrderedMenuInfo menuInfo = wooWaRestaurant.order(visitDate, menus);
-
-        printEventBenefitsPreview(visitDayOfMonth, menus, menuInfo);
+        printEventBenefitsPreview(visitDayOfMonth, eventService.previewEventBenefits(visitDayOfMonth, menuForm));
     }
 
-    private LocalDate createVisitDate(int visitDayOfMonth) {
-        return LocalDate.of(DISCOUNT_YEAR, DISCOUNT_MONTH, visitDayOfMonth);
-    }
+    private void printEventBenefitsPreview(int visitDayOfMonth, PreviewEventBenefitsDto previewEventBenefitsDto) {
+        MenuInfoDto menuInfoDto = previewEventBenefitsDto.getMenuInfoDto();
 
-    private WooWaRestaurant createWooWaRestaurant(LocalDate visitDate) {
-        return new WooWaRestaurant(new DiscountAmount(createDiscountPolicies(visitDate), new GiftEvent()));
-    }
-
-    private List<DiscountPolicy> createDiscountPolicies(LocalDate visitDate) {
-        List<DiscountPolicy> discountPolicies = new ArrayList<>();
-        discountPolicies.add(new ChristmasDDayDiscountPolicy(visitDate));
-        discountPolicies.add(new WeekDayDiscountPolicy(visitDate));
-        discountPolicies.add(new WeekendDiscountPolicy(visitDate));
-        discountPolicies.add(new SpecialDiscountPolicy(visitDate));
-        return discountPolicies;
-    }
-
-    private void printEventBenefitsPreview(int visitDayOfMonth, Menus menus, OrderedMenuInfo menuInfo) {
         outputView.printEventBenefitPreviewMessage(visitDayOfMonth);
-        outputView.printOrderMenu(menus);
-        outputView.printTotalOrderAmount(menus.totalOrderAmount());
-        outputView.printGifts(menuInfo.gifts());
-        outputView.printBenefitDetails(menuInfo.benefitDetails());
-        outputView.printTotalDiscountAmount(menuInfo.totalDiscountAmount());
-        outputView.printExpectedPaymentAmount(menuInfo.expectedPaymentAmount());
-        outputView.printEventBadge(createEventBadge(menuInfo.eventBadge()));
-    }
-
-    private String createEventBadge(EventBadge eventBadge) {
-        if (isExist(eventBadge)) {
-            return eventBadge.getName();
-        }
-        return NONE_EVENT_BADGE;
-    }
-
-    private boolean isExist(EventBadge eventBadge) {
-        return eventBadge != EventBadge.NOTHING;
+        outputView.printOrderMenus(previewEventBenefitsDto.getMenuDtos());
+        outputView.printTotalOrderAmount(previewEventBenefitsDto.getTotalOrderAmount());
+        outputView.printGifts(menuInfoDto.getGiftDtos());
+        outputView.printBenefitDetails(menuInfoDto.getBenefitDetails());
+        outputView.printTotalDiscountAmount(menuInfoDto.getTotalDiscountAmount());
+        outputView.printExpectedPaymentAmount(menuInfoDto.getExpectedPaymentAmount());
+        outputView.printEventBadge(menuInfoDto.getEventBadgeDto().getName());
     }
 }

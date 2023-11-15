@@ -14,6 +14,7 @@ import christmas.domain.discount.policy.WeekendDiscountPolicy;
 import christmas.dto.EventBadgeDto;
 import christmas.dto.GiftDto;
 import christmas.dto.MenuDto;
+import christmas.dto.MenuInfoDto;
 import christmas.dto.PreviewEventBenefitsDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,8 +42,8 @@ public class EventService {
         long totalDiscountAmount = menuInfo.totalDiscountAmount();
         long expectedPaymentAmount = menuInfo.expectedPaymentAmount();
         EventBadgeDto eventBadgeDto = EventBadgeDto.valueOf(menuInfo.eventBadge());
-        return new PreviewEventBenefitsDto(menuDtos, giftDtos, benefitDetails, totalDiscountAmount,
-                expectedPaymentAmount, eventBadgeDto);
+        return new PreviewEventBenefitsDto(menuDtos, menus.totalOrderAmount(),
+                new MenuInfoDto(giftDtos, benefitDetails, totalDiscountAmount, expectedPaymentAmount, eventBadgeDto));
     }
 
     private List<GiftDto> createGiftDtos(Map<Menu, Integer> gifts) {

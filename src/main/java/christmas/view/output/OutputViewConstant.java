@@ -12,4 +12,5 @@ public class OutputViewConstant {
     public static final String COLUMN_SPACE = ": ";
     public static final String ZERO_WON = "0원";
     public static final int ZERO = 0;
+    public static final String NONE_EVENT_BADGE = "NOTHING";
 }
