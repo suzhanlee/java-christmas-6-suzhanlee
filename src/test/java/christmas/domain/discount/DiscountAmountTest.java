@@ -29,12 +29,12 @@ public class DiscountAmountTest {
     @DisplayName("주문 메뉴들에 대한 해택 내역을 알려준다.")
     void inform_benefit_details() {
         // given
-        LocalDate localDate = LocalDate.of(2023, 12, 3);
+        LocalDate visitDate = LocalDate.of(2023, 12, 3);
         Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
-        DiscountAmount discountAmount = new DiscountAmount(createDiscountPolicies(localDate), new GiftEvent());
+        DiscountAmount discountAmount = new DiscountAmount(createDiscountPolicies(visitDate), new GiftEvent());
 
         // when
-        Map<String, Long> result = discountAmount.informBenefitDetails(menus, localDate);
+        Map<String, Long> result = discountAmount.informBenefitDetails(menus, visitDate);
 
         // then
         assertThat(result).isEqualTo(createExpectedBenefitDetails());
@@ -62,9 +62,9 @@ public class DiscountAmountTest {
     @DisplayName("증정 상품이 있으면 증정 상품과 개수를 알려준다.")
     void inform_if_there_is_gift() {
         // given
-        LocalDate localDate = LocalDate.of(2023, 12, 3);
+        LocalDate visitDate = LocalDate.of(2023, 12, 3);
         Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
-        DiscountAmount discountAmount = new DiscountAmount(createDiscountPolicies(localDate), new GiftEvent());
+        DiscountAmount discountAmount = new DiscountAmount(createDiscountPolicies(visitDate), new GiftEvent());
 
         // when
         Map<Menu, Integer> result = discountAmount.checkGift(menus.totalOrderAmount());

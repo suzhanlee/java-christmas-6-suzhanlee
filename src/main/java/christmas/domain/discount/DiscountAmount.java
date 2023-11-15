@@ -21,17 +21,17 @@ public class DiscountAmount {
         this.giftEvent = giftEvent;
     }
 
-    public Map<String, Long> informBenefitDetails(Menus menus, LocalDate localDate) {
+    public Map<String, Long> informBenefitDetails(Menus menus, LocalDate visitDate) {
         Map<String, Long> benefitDetails = new HashMap<>();
-        if (!discountable(menus, localDate)) {
+        if (!discountable(menus, visitDate)) {
             return benefitDetails;
         }
         return discountedBenefitDetails(menus, benefitDetails);
     }
 
-    private boolean discountable(Menus menus, LocalDate localDate) {
-        return menus.totalOrderAmount() >= MIN_ORDER_AMOUNT_FOR_DISCOUNT && localDate.getYear() == DISCOUNT_YEAR
-                && localDate.getMonth() == DECEMBER;
+    private boolean discountable(Menus menus, LocalDate visitDate) {
+        return menus.totalOrderAmount() >= MIN_ORDER_AMOUNT_FOR_DISCOUNT && visitDate.getYear() == DISCOUNT_YEAR
+                && visitDate.getMonth() == DECEMBER;
     }
 
     private Map<String, Long> discountedBenefitDetails(Menus menus, Map<String, Long> benefitDetails) {
