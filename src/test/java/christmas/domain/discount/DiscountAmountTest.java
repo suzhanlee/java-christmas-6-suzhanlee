@@ -22,7 +22,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 public class DiscountAmountTest {
 
@@ -93,7 +92,25 @@ public class DiscountAmountTest {
         Map<String, Long> result = discountAmount.informBenefitDetails(menus, visitDate);
 
         // then
-        assertThat(result).isEqualTo(new HashMap<>());
+        assertThat(result).isEqualTo(createNoBenefitDetails());
+    }
 
+    private HashMap<String, Long> createNoBenefitDetails() {
+        return new HashMap<>();
+    }
+
+    @Test
+    @DisplayName("할인 전 총 주문 금액이 10000이 넘지 않으면 할인을 하지 않는다.")
+    void no_discount_if_total_order_amount_does_not_exceed_certain_amount() {
+        // given
+        LocalDate visitDate = LocalDate.of(2023, 12, 23);
+        Menus menus = new Menus("아이스크림-1");
+        DiscountAmount discountAmount = new DiscountAmount(createDiscountPolicies(visitDate), new GiftEvent());
+
+        // when
+        Map<String, Long> result = discountAmount.informBenefitDetails(menus, visitDate);
+
+        // then
+        assertThat(result).isEqualTo(createNoBenefitDetails());
     }
 }
