@@ -38,8 +38,8 @@ public class WeekDayDiscountPolicyTest {
     @DisplayName("디저트 메뉴를 메뉴 1개당 2023원 할인한다.")
     void calculate_discount_amount() {
         // given
-        LocalDate localDate = LocalDate.of(2023, 12, 12);
-        WeekDayDiscountPolicy weekDayDiscountPolicy = new WeekDayDiscountPolicy(localDate);
+        LocalDate visitDate = LocalDate.of(2023, 12, 12);
+        WeekDayDiscountPolicy weekDayDiscountPolicy = new WeekDayDiscountPolicy(visitDate);
         Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
 
         // when
