@@ -10,14 +10,14 @@ public class WeekendDiscountPolicy implements DiscountPolicy {
 
     public static final int DISCOUNT_PER_WEEKEND_MAIN_MENU = 2023;
     public static final String WEEKEND_DISCOUNT = "주말 할인";
-    private final LocalDate localDate;
+    private final LocalDate visitDate;
 
-    public WeekendDiscountPolicy(LocalDate localDate) {
-        this.localDate = localDate;
+    public WeekendDiscountPolicy(LocalDate visitDate) {
+        this.visitDate = visitDate;
     }
 
     public boolean supports() {
-        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        DayOfWeek dayOfWeek = visitDate.getDayOfWeek();
         return dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY;
     }
 

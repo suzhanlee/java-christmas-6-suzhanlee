@@ -21,7 +21,7 @@ public class WeekendDiscountPolicyTest {
     @CsvSource(value = {"SUNDAY, false", "THURSDAY, false", "FRIDAY, true", "SATURDAY, true"})
     void discount_condition(DayOfWeek dayOfWeek, boolean expected) {
         // given
-        WeekendDiscountPolicy weekendDiscountPolicy = new WeekendDiscountPolicy(createLocalDateBy(dayOfWeek));
+        WeekendDiscountPolicy weekendDiscountPolicy = new WeekendDiscountPolicy(createVisitDateBy(dayOfWeek));
 
         // when
         boolean result = weekendDiscountPolicy.supports();
@@ -30,7 +30,7 @@ public class WeekendDiscountPolicyTest {
         assertThat(result).isEqualTo(expected);
     }
 
-    private LocalDate createLocalDateBy(DayOfWeek dayOfWeek) {
+    private LocalDate createVisitDateBy(DayOfWeek dayOfWeek) {
         return LocalDate.of(2023, 12, 13).with(TemporalAdjusters.nextOrSame(dayOfWeek));
     }
 
@@ -38,8 +38,8 @@ public class WeekendDiscountPolicyTest {
     @DisplayName("메인 메뉴를 메뉴 1개당 2023원 할인한다.")
     void calculate_discount_amount() {
         // given
-        LocalDate localDate = LocalDate.of(2023, 12, 13);
-        WeekendDiscountPolicy weekendDiscountPolicy = new WeekendDiscountPolicy(localDate);
+        LocalDate visitDate = LocalDate.of(2023, 12, 13);
+        WeekendDiscountPolicy weekendDiscountPolicy = new WeekendDiscountPolicy(visitDate);
         Menus menus = new Menus("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
 
         // when
